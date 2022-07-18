@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="separable_jaws" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- include macro from other files-->
+    <xacro:include filename="$(find separable_jaws_description)/urdf/material.xacro"/>
+    <xacro:include filename="$(find separable_jaws_description)/urdf/simple_geometry.xacro"/>
+    
+    <!-- chassis macro -->
+    <xacro:macro name="chassis" params="name">
+        <xacro:cuboid name="${name}" length="1" width="0.5" hight="0.2" mass="1" material="Red"/>
+    </xacro:macro>
+    
+    <!-- wheel macro -->
+    <xacro:macro name="wheel" params="name">
+        <xacro:cylinder name="${name}" length="0.1" radius="0.3" rpy="${radians(90)} 0 0" mass="1.0" material="Black"/>
+    </xacro:macro>
+
+    <!-- robot definition -->
+    <link name="base_link">
+    </link>
+    <xacro:chassis name="chassis"/>
+    <xacro:wheel name="front_left_wheel"/>
+    <xacro:wheel name="front_right_wheel"/>
+    <xacro:wheel name="rear_left_wheel"/>
+    <xacro:wheel name="rear_right_wheel"/>
+    <joint name="base_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0.3" rpy="0 0 0"/>
+    </joint>
+    <joint name="front_left_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="front_left_wheel"/>
+        <origin xyz="0.4 -0.3 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="front_right_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="front_right_wheel"/>
+        <origin xyz="0.4 0.3 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="rear_left_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="rear_left_wheel"/>
+        <origin xyz="-0.4 -0.3 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <joint name="rear_right_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="rear_right_wheel"/>
+        <origin xyz="-0.4 0.3 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+</robot>

@@ -1,0 +1,84 @@
+material gazebo/red
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 0.8 0.0 0.0 1.0
+            ambient 0.4 0.0 0.0 1.0
+            specular 0.8 0.0 0.0 1.0 64
+            emissive 0.1 0.0 0.0 1.0
+        }
+    }
+}
+
+material gazebo/green
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 0.0 0.8 0.0 1.0
+            ambient 0.0 0.4 0.0 1.0
+            specular 0.0 0.8 0.0 1.0 64
+            emissive 0.0 0.1 0.0 1.0
+        }
+    }
+}
+
+material gazebo/blue
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 0.0 0.0 0.8 1.0
+            ambient 0.0 0.0 0.4 1.0
+            specular 0.0 0.0 0.8 1.0 64
+            emissive 0. 0.0 0.1 1.0
+        }
+    }
+}
+
+material gazebo/white
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 1.0 1.0 1.0 1.0
+            ambient 0.5 0.5 0.5 1.0
+            specular 1.0 1.0 1.0 1.0 64
+            emissive 0.3 0.3 0.3 1.0
+        }
+    }
+}
+
+material gazebo/grey
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 0.7 0.7 0.7 1.0
+            ambient 0.3 0.3 0.3 1.0
+            specular 0.7 0.7 0.7 1.0 64
+            emissive 0.1 0.1 0.1 1.0
+        }
+    }
+}
+
+material gazebo/black
+{
+    technique
+    {
+        pass main
+        {
+            diffuse 0.1 0.1 0.1 1.0
+            ambient 0.02 0.02 0.02 1.0
+            specular 0.1 0.1 0.1 1.0 64
+            emissive 0.0 0.0 0.0 1.0
+        }
+    }
+}
+
