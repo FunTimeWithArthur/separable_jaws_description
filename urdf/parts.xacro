@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<!-- urdf macro inertial, visual and collision for robot parts -->
+<robot name="separable_jaws" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- constant definition -->
+    <xacro:property name="triple_zero" value="0 0 0"/>
+    <xacro:property name="link_material" value="Light_grey"/>
+    <xacro:property name="motor_material" value="Grey"/>
+
+    <!-- links -->
+    <!-- bracket -->
+    <xacro:macro name="bracket" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.345"/>
+                <inertia
+                    ixx="0.000498516" ixy="0.000014631" ixz="-0.000000327"
+                    iyy="0.000806479" iyz="-0.000000068"
+                    izz="0.000424246"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/bracket.stl"/>
+                </geometry>
+                <material name="${link_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/bracket.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- shoulder -->
+    <xacro:macro name="shoulder" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.341"/>
+                <inertia
+                    ixx="0.001205694" ixy="0.000197055" ixz="-0.000000001"
+                    iyy="0.00053986" iyz="-0.000000004"
+                    izz="0.001280523"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder.stl"/>
+                </geometry>
+                <material name="${link_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+    
+    <!-- upper_arm -->
+    <xacro:macro name="upper_arm" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.878"/>
+                <inertia
+                    ixx="0.021889537" ixy="0.005953130" ixz="-0.000000002"
+                    iyy="0.003984845" iyz="-0.000000002"
+                    izz="0.024402335"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/upper_arm.stl"/>
+                </geometry>
+                <material name="${link_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/upper_arm.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- lower_arm -->
+    <xacro:macro name="lower_arm" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.54"/>
+                <inertia
+                    ixx="0.010361365" ixy="-0.000515183" ixz="0.000000002"
+                    iyy="0.000723729" iyz="0.000000018"
+                    izz="0.010447864"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/lower_arm.stl"/>
+                </geometry>
+                <material name="${link_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/lower_arm.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- wrist -->
+    <xacro:macro name="wrist" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.219"/>
+                <inertia
+                    ixx="0.000292618" ixy="0.00009765" ixz="0.000000002"
+                    iyy="0.000386529" iyz="0.000000001"
+                    izz="0.000480342"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+                </geometry>
+                <material name="${link_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- motors -->
+    <!-- dynamixel_pro_h54-100-s500 -->
+    <xacro:macro name="dynamixel_pro_h54-100-s500" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.732"/>
+                <inertia
+                    ixx="0.002986389" ixy="0" ixz="0"
+                    iyy="0.000323459" iyz="0.000020263"
+                    izz="0.002987724"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+                </geometry>
+                <material name="${motor_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${motor_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- dynamixel_pro_h54-200-s500 -->
+    <xacro:macro name="dynamixel_pro_h54-200-s500" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.219"/>
+                <inertia
+                    ixx="0.004683715" ixy="0" ixz="0"
+                    iyy="0.000378897" iyz="0.000023577"
+                    izz="0.004684874"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-200-s500.stl"/>
+                </geometry>
+                <material name="${motor_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-200-s500.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${motor_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- dynamixel_pro_h42-20-s300-->
+    <xacro:macro name="dynamixel_pro_h42-20-s300" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.219"/>
+                <inertia
+                    ixx="0.000890475" ixy="0" ixz="0"
+                    iyy="0.000092678" iyz="0.000003424"
+                    izz=".000890318"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+                </geometry>
+                <material name="${motor_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${motor_material}</material>
+        </gazebo>
+    </xacro:macro>
+</robot>

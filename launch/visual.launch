@@ -4,10 +4,9 @@
     <arg name="model" default="$(find separable_jaws_description)/urdf/separable_jaws.xacro"/>
     <arg name="gui" default="true"/>
     <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz"/>
-    <arg name="using_gazebo" default="false"/>
 
     <!-- parse xacro files into urdf files -->
-    <param name="robot_description" command="$(find xacro)/xacro $(arg model) using_gazebo:=$(arg using_gazebo)"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
     <!-- publish states of joints so rviz can visualize the movements -->
     <!-- using gui for panel control of the robot -->

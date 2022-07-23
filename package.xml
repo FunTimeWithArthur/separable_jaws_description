@@ -2,7 +2,7 @@
 <package format="2">
     <name>separable_jaws_description</name>
     <version>0.0.0</version>
-    <description>Robot description for separable_jaws</description>
+    <description>Package for robot description of separable_jaws</description>
 
     <!-- One maintainer tag required, multiple allowed, one person per tag -->
     <!-- Example:  -->

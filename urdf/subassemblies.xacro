@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!-- urdf macro inertial, visual and collision for robot parts -->
+<robot name="separable_jaws" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- constant definition -->
+    <xacro:property name="triple_zero" value="0 0 0"/>
+
+    <!-- include macros from other files -->
+    <xacro:include filename="$(find separable_jaws_description)/urdf/parts.xacro"/>
+
+    <!-- subassemblies -->
+    <!-- bracket -->
+    <xacro:macro name="right_bracket" params="xyz:=${triple_zero}">
+        <xacro:bracket name="right_bracket"/>
+        <joint name="mount_point" type="fixed">
+            <origin xyz="${xyz}" rpy="0 0 0"/>
+            <parent link="base_link"/>
+            <child link="right_bracket"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- right_shoulder -->
+    <xacro:macro name="right_shoulder">
+        <xacro:dynamixel_pro_h54-100-s500 name="right_shoulder_motor" rpy="0 ${radians(90)} 0"/>
+        <xacro:shoulder name="right_shoulder"/>
+        <joint name="right_shoulder_joint" type="continuous">
+            <origin xyz="0 -0.025 0" rpy="0 0 0"/>
+            <parent link="right_bracket"/>
+            <child link="right_shoulder_motor"/>
+            <axis xyz="0 -1 0"/>
+        </joint>
+        <joint name="right_shoulder_internal_mount" type="fixed">
+            <origin xyz="0 -0.00005 0" rpy="0 0 0"/>
+            <parent link="right_shoulder_motor"/>
+            <child link="right_shoulder"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- right_upper_arm -->
+    <xacro:macro name="right_upper_arm">
+        <xacro:dynamixel_pro_h54-200-s500 name="right_upper_arm_motor1" rpy="${radians(180)} 0 ${radians(-90)}"/>
+        <xacro:upper_arm name="right_upper_arm"/>
+        <xacro:dynamixel_pro_h54-100-s500 name="right_upper_arm_motor2" rpy="0 ${radians(90)} ${radians(90)}"/>
+        <joint name="right_upper_arm_joint" type="continuous">
+            <origin xyz="0.045 -0.0505 0" rpy="0 0 0"/>
+            <parent link="right_shoulder"/>
+            <child link="right_upper_arm_motor1"/>
+            <axis xyz="1 0 0"/>
+        </joint>
+        <joint name="right_upper_arm_internal_mount1" type="fixed">
+            <origin xyz="0.00005 0 0" rpy="0 0 0"/>
+            <parent link="right_upper_arm_motor1"/>
+            <child link="right_upper_arm"/>
+        </joint>
+        <joint name="right_upper_arm_internal_mount2" type="fixed">
+            <origin xyz="0.01495 -0.25 0" rpy="0 0 0"/>
+            <parent link="right_upper_arm"/>
+            <child link="right_upper_arm_motor2"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- right_lower_arm -->
+    <xacro:macro name="right_lower_arm">
+        <xacro:lower_arm name="right_lower_arm"/>
+        <xacro:dynamixel_pro_h42-20-s300 name="right_lower_arm_motor" rpy="0 ${radians(180)} ${radians(-90)}"/>
+        <joint name="right_lower_arm_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <parent link="right_upper_arm_motor2"/>
+            <child link="right_lower_arm"/>
+            <axis xyz="1 0 0"/>
+        </joint>
+        <joint name="right_lower_arm_internal_mount" type="fixed">
+            <origin xyz="0.0405 -0.2 0" rpy="0 0 0"/>
+            <parent link="right_lower_arm"/>
+            <child link="right_lower_arm_motor"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- right_wrist -->
+    <xacro:macro name="right_wrist">
+        <xacro:wrist name="right_wrist"/>
+        <xacro:dynamixel_pro_h42-20-s300 name="right_wrist_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
+        <joint name="right_wrist_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <parent link="right_lower_arm_motor"/>
+            <child link="right_wrist"/>
+            <axis xyz="1 0 0"/>
+        </joint>
+        <joint name="right_wrist_internal_mount" type="fixed">
+            <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
+            <parent link="right_wrist"/>
+            <child link="right_wrist_motor"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- right_palm -->
+    <xacro:macro name="right_palm">
+        <xacro:wrist name="right_palm"/>
+        <xacro:dynamixel_pro_h42-20-s300 name="right_palm_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
+        <joint name="right_palm_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 ${radians(180)} ${radians(90)}"/>
+            <parent link="right_wrist_motor"/>
+            <child link="right_palm"/>
+            <axis xyz="1 0 0"/>
+        </joint>
+        <joint name="right_palm_internal_mount" type="fixed">
+            <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
+            <parent link="right_palm"/>
+            <child link="right_palm_motor"/>
+        </joint>
+    </xacro:macro>
+</robot>

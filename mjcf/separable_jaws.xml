@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<mujoco model="separable_jaws">
+    <!-- simulation configuration -->
+    <!-- mesh directory -->
+    <compiler meshdir="../meshes"/>
+    <!-- physics configuration -->
+    <option timestep="0.005" iterations="50" solver="Newton" tolerance="1e-10" gravity="0 0 -9.81"/>
+    <!-- maximum size configuration -->
+    <size nconmax="50" njmax="200" nstack="10000"/>
+
+    <!-- visual effects -->
+    <visual>
+        <map force="0.1" zfar="30"/>
+        <quality shadowsize="4096"/>
+    </visual>
+
+    <!-- assets for references in model -->
+    <asset>
+        <!-- textures -->
+        <texture name="texplane" type="2d" builtin="checker" mark="cross" width="64" height="64"
+            rgb1="0.2 0.3 0.4" rgb2="0.1 0.15 0.2" markrgb="0.8 0.8 0.8"/>
+        <!-- materials -->
+        <!-- texture repeating every 0.1 unit length-->
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="10 10" texuniform="true"/>
+
+        <!-- mesh files -->
+        <mesh name="bracket" file="bracket.stl"/>
+        <mesh name="shoulder" file="shoulder.stl"/>
+        <mesh name="upper_arm" file="upper_arm.stl"/>
+        <mesh name="lower_arm" file="lower_arm.stl"/>
+        <mesh name="wrist" file="wrist.stl"/>
+        <mesh name="dynamixel_pro_h42-20-s300" file="dynamixel_pro_h42-20-s300.stl"/>
+        <mesh name="dynamixel_pro_h54-100-s500" file="dynamixel_pro_h54-100-s500.stl"/>
+        <mesh name="dynamixel_pro_h54-200-s500" file="dynamixel_pro_h54-200-s500.stl"/>
+    </asset>
+
+    <!-- model description-->
+    <worldbody>
+        <!-- world description -->
+        <light directional="true" diffuse="0.8 0.8 0.8" specular="0.2 0.2 0.2" pos="0 0 5" dir="0 0 -1"/>
+        <geom name="floor" pos="0 0 0" size="0 0 0.1" type="plane" material="matplane"/>
+
+        <!-- robot description -->
+        <geom type="mesh" mesh="bracket" pos="0 0 1" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+        <body name="shoulder" pos="0 -0.025 1" euler="0 0 0">
+            <joint name="shoulder_joint" type="hinge" pos="0 0 0" axis="0 -1 0" frictionloss="20"/>
+            <geom type="mesh" mesh="dynamixel_pro_h54-100-s500" pos="0 0 0" euler="0 90 0" density="2667.2321" rgba="0.5 0.5 0.5 1" group="1"/>
+            <geom type="mesh" mesh="shoulder" pos="0 -0.00005 0" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+            <body name="upper_arm" pos="0.045 -0.0505 0">
+                <joint name="upper_arm_joint" type="hinge" pos="0 0 0" axis="1 0 0" frictionloss="40"/>
+                <geom type="mesh" mesh="dynamixel_pro_h54-200-s500" pos="0 0 0" euler="180 0 90" density="2637.6109" rgba="0.5 0.5 0.5 1" group="1"/>
+                <geom type="mesh" mesh="upper_arm" pos="0.00005 0 0" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+                <geom type="mesh" mesh="dynamixel_pro_h54-100-s500" pos="0.015 -0.25 0" euler="-90 0 90" density="2667.2321" rgba="0.5 0.5 0.5 1" group="1"/>
+                <body name="lower_arm" pos="0.015 -0.25 0">
+                    <joint name="lower_arm_joint" pos="0 0 0" axis="1 0 0" frictionloss="20"/>
+                    <geom type="mesh" mesh="lower_arm" pos="0 0 0" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+                    <geom type="mesh" mesh="dynamixel_pro_h42-20-s300" pos="0.0405 -0.2 0" euler="0 180 90" density="2607.1681" rgba="0.5 0.5 0.5 1" group="1"/>
+                    <body name="wrist" pos="0.0405 -0.2 0" euler="0 0 0">
+                        <joint name="wrist_joint" pos="0 0 0" axis="1 0 0" frictionloss="10"/>
+                        <geom type="mesh" mesh="wrist" pos="0 0 0" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+                        <geom type="mesh" mesh="dynamixel_pro_h42-20-s300" pos="0.035 -0.055 0" euler="0 -90 180" density="2607.1681" rgba="0.5 0.5 0.5 1" group="1"/>
+                        <body name="palm" pos="0.035 -0.0555 0" euler="0 180 -90">
+                            <joint name="palm_joint" pos="0 0 0" axis="1 0 0" frictionloss="10"/>
+                            <geom type="mesh" mesh="wrist" pos="0 0 0" euler="0 0 0" density="2700" rgba="0.8 0.8 0.8 1" group="0"/>
+                            <geom type="mesh" mesh="dynamixel_pro_h42-20-s300" pos="0.035 -0.055 0" euler="0 -90 180" density="2607.1681" rgba="0.5 0.5 0.5 1" group="1"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <!-- actuators to drive the robot -->
+    <actuator>
+        <position name="shoulder_servo" joint="shoulder_joint" kp="300"/>
+        <position name="upper_arm_servo" joint="upper_arm_joint" kp="300"/>
+        <position name="lower_arm_servo" joint="lower_arm_joint" kp="300"/>
+        <position name="wrist_servo" joint="wrist_joint" kp="100"/>
+        <position name="palm_servo" joint="palm_joint" kp="100"/>
+    </actuator>
+</mujoco>
