@@ -1,6 +1,9 @@
 # Separable Jaws Robot Descrtption
+
 ## Usage
+
 Lunch the visual preview of the model by
+
 ```bash=
-roslaunch separable_jaws_description visual.launch
+ros2 launch separable_jaws_description visula.launch.py
 ```
