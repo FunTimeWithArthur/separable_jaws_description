@@ -4,6 +4,8 @@
     <!-- constant definition -->
     <xacro:property name="triple_zero" value="0 0 0"/>
     <xacro:property name="link_material" value="Light_grey"/>
+    <xacro:property name="cover_material" value="Black"/>
+    <xacro:property name="extension_ring_material" value="White"/>
     <xacro:property name="motor_material" value="Grey"/>
 
     <!-- links -->
@@ -159,6 +161,193 @@
         </link>
         <gazebo reference="${name}">
             <material>Gazebo/${link_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- covers -->
+    <!-- shoulder_extension_ring -->
+    <xacro:macro name="shoulder_extension_ring" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.01"/>
+                <inertia
+                    ixx="0.000008154" ixy="0" ixz="0"
+                    iyy="0.000007974" iyz="0.000000006"
+                    izz="0.000015238"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+                </geometry>
+                <material name="${extension_ring_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${extension_ring_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- shoulder_cover -->
+    <xacro:macro name="shoulder_cover" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.075"/>
+                <inertia
+                    ixx="0.000055846" ixy="0" ixz="0"
+                    iyy="0.000055846" iyz="0"
+                    izz="0.000068514"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+                </geometry>
+                <material name="${cover_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${cover_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- upper_arm_cover -->
+    <xacro:macro name="upper_arm_cover" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.235"/>
+                <inertia
+                    ixx="0.000385567" ixy="-0.00000002" ixz="0.000732197"
+                    iyy="0.006196229" iyz="-0.000000009"
+                    izz="0.00621496"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+                </geometry>
+                <material name="${cover_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${cover_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- lower_arm_cover -->
+    <xacro:macro name="lower_arm_cover" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.079"/>
+                <inertia
+                    ixx="0.000047626" ixy="0.000000367" ixz="0.000039299"
+                    iyy="0.001178645" iyz="-0.000000021"
+                    izz="0.00121964"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+                </geometry>
+                <material name="${cover_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${cover_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- wrist_extension_ring -->
+    <xacro:macro name="wrist_extension_ring" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.007"/>
+                <inertia
+                    ixx="0.000003276" ixy="0" ixz="0"
+                    iyy="0.000003197" iyz="0.000000003"
+                    izz="0.00000617"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+                </geometry>
+                <material name="${extension_ring_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${extension_ring_material}</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- wrist_cover -->
+    <xacro:macro name="wrist_cover" params="name xyz:=${triple_zero} rpy:=${triple_zero}">
+        <link name="${name}">
+            <inertial>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <mass value="0.037"/>
+                <inertia
+                    ixx="0.000009686" ixy="0" ixz="0"
+                    iyy="0.00000987" iyz="0"
+                    izz="0.000017485"
+                />
+            </inertial>
+            <visual>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+                </geometry>
+                <material name="${cover_material}"/>
+            </visual>
+            <collision>
+                <origin xyz="${xyz}" rpy="${rpy}"/>
+                <geometry>
+                    <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${name}">
+            <material>Gazebo/${cover_material}</material>
         </gazebo>
     </xacro:macro>
 

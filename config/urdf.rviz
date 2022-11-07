@@ -20,6 +20,8 @@ Visualization Manager:
     - Class: rviz_default_plugins/TF
       Name: TF
       Value: true
+      Show Axes: false
+      Show Arrows: false
   Global Options:
     Fixed Frame: base_link
     Frame Rate: 30

@@ -32,16 +32,28 @@
     <xacro:macro name="right_shoulder">
         <xacro:dynamixel_pro_h54-100-s500 name="right_shoulder_motor" rpy="0 ${radians(90)} 0"/>
         <xacro:shoulder name="right_shoulder"/>
+        <xacro:shoulder_extension_ring name="right_shoulder_extension_ring"/>
+        <xacro:shoulder_cover name="right_shoulder_cover"/>
         <joint name="right_shoulder_joint" type="continuous">
             <origin xyz="0 -0.025 0" rpy="0 0 0"/>
             <parent link="right_bracket"/>
             <child link="right_shoulder_motor"/>
             <axis xyz="0 -1 0"/>
         </joint>
-        <joint name="right_shoulder_internal_mount" type="fixed">
+        <joint name="right_shoulder_internal_mount1" type="fixed">
             <origin xyz="0 -0.00005 0" rpy="0 ${radians(-90)} 0"/>
             <parent link="right_shoulder_motor"/>
             <child link="right_shoulder"/>
+        </joint>
+        <joint name="right_shoulder_internal_mount2" type="fixed">
+            <origin xyz="0 -0.1 0" rpy="${radians(90)} ${radians(-90)} 0"/>
+            <parent link="right_shoulder"/>
+            <child link="right_shoulder_extension_ring"/>
+        </joint>
+        <joint name="right_shoulder_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.012" rpy="0 0 0"/>
+            <parent link="right_shoulder_extension_ring"/>
+            <child link="right_shoulder_cover"/>
         </joint>
     </xacro:macro>
 
@@ -49,16 +61,28 @@
     <xacro:macro name="left_shoulder">
         <xacro:dynamixel_pro_h54-100-s500 name="left_shoulder_motor" rpy="0 ${radians(-90)} 0"/>
         <xacro:shoulder name="left_shoulder"/>
+        <xacro:shoulder_extension_ring name="left_shoulder_extension_ring"/>
+        <xacro:shoulder_cover name="left_shoulder_cover"/>
         <joint name="left_shoulder_joint" type="continuous">
             <origin xyz="0 -0.025 0" rpy="0 ${radians(180)} 0"/>
             <parent link="left_bracket"/>
             <child link="left_shoulder_motor"/>
             <axis xyz="0 -1 0"/>
         </joint>
-        <joint name="left_shoulder_internal_mount" type="fixed">
+        <joint name="left_shoulder_internal_mount1" type="fixed">
             <origin xyz="0 -0.00005 0" rpy="0 ${radians(-90)} 0"/>
             <parent link="left_shoulder_motor"/>
             <child link="left_shoulder"/>
+        </joint>
+        <joint name="left_shoulder_internal_mount2" type="fixed">
+            <origin xyz="0 -0.1 0" rpy="${radians(90)} ${radians(-90)} 0"/>
+            <parent link="left_shoulder"/>
+            <child link="left_shoulder_extension_ring"/>
+        </joint>
+        <joint name="left_shoulder_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.012" rpy="0 0 0"/>
+            <parent link="left_shoulder_extension_ring"/>
+            <child link="left_shoulder_cover"/>
         </joint>
     </xacro:macro>
 
@@ -66,6 +90,7 @@
     <xacro:macro name="right_upper_arm">
         <xacro:dynamixel_pro_h54-200-s500 name="right_upper_arm_motor1" rpy="${radians(180)} 0 ${radians(-90)}"/>
         <xacro:upper_arm name="right_upper_arm"/>
+        <xacro:upper_arm_cover name="right_upper_arm_cover"/>
         <xacro:dynamixel_pro_h54-100-s500 name="right_upper_arm_motor2" rpy="0 ${radians(90)} ${radians(90)}"/>
         <joint name="right_upper_arm_joint" type="continuous">
             <origin xyz="0.045 -0.0505 0" rpy="${radians(90)} 0 0"/>
@@ -83,12 +108,18 @@
             <parent link="right_upper_arm"/>
             <child link="right_upper_arm_motor2"/>
         </joint>
+        <joint name="right_upper_arm_internal_mount3" type="fixed">
+            <origin xyz="0.1 0 0" rpy="${radians(90)} 0 ${radians(-90)}"/>
+            <parent link="right_upper_arm"/>
+            <child link="right_upper_arm_cover"/>
+        </joint>
     </xacro:macro>
 
     <!-- left_upper_arm -->
     <xacro:macro name="left_upper_arm">
         <xacro:dynamixel_pro_h54-200-s500 name="left_upper_arm_motor1" rpy="${radians(180)} ${radians(180)} ${radians(-90)}"/>
         <xacro:upper_arm name="left_upper_arm"/>
+        <xacro:upper_arm_cover name="left_upper_arm_cover"/>
         <xacro:dynamixel_pro_h54-100-s500 name="left_upper_arm_motor2" rpy="0 ${radians(90)} ${radians(90)}"/>
         <joint name="left_upper_arm_joint" type="continuous">
             <origin xyz="0.045 -0.0505 0" rpy="${radians(-90)} 0 0"/>
@@ -106,11 +137,17 @@
             <parent link="left_upper_arm"/>
             <child link="left_upper_arm_motor2"/>
         </joint>
+        <joint name="left_upper_arm_internal_mount3" type="fixed">
+            <origin xyz="0.1 0 0" rpy="${radians(90)} 0 ${radians(-90)}"/>
+            <parent link="left_upper_arm"/>
+            <child link="left_upper_arm_cover"/>
+        </joint>
     </xacro:macro>
 
     <!-- right_lower_arm -->
     <xacro:macro name="right_lower_arm">
         <xacro:lower_arm name="right_lower_arm"/>
+        <xacro:lower_arm_cover name="right_lower_arm_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="right_lower_arm_motor" rpy="0 ${radians(180)} ${radians(-90)}"/>
         <joint name="right_lower_arm_joint" type="continuous">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -118,16 +155,22 @@
             <child link="right_lower_arm"/>
             <axis xyz="1 0 0"/>
         </joint>
-        <joint name="right_lower_arm_internal_mount" type="fixed">
+        <joint name="right_lower_arm_internal_mount1" type="fixed">
             <origin xyz="0.0405 -0.2 0" rpy="0 0 0"/>
             <parent link="right_lower_arm"/>
             <child link="right_lower_arm_motor"/>
+        </joint>
+        <joint name="right_lower_arm_internal_mount2" type="fixed">
+            <origin xyz="-0.05 0 0" rpy="${radians(-90)} 0 ${radians(90)}"/>
+            <parent link="right_lower_arm"/>
+            <child link="right_lower_arm_cover"/>
         </joint>
     </xacro:macro>
 
     <!-- left_lower_arm -->
     <xacro:macro name="left_lower_arm">
         <xacro:lower_arm name="left_lower_arm"/>
+        <xacro:lower_arm_cover name="left_lower_arm_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="left_lower_arm_motor" rpy="0 0 ${radians(-90)}"/>
         <joint name="left_lower_arm_joint" type="continuous">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -140,11 +183,18 @@
             <parent link="left_lower_arm"/>
             <child link="left_lower_arm_motor"/>
         </joint>
+        <joint name="left_lower_arm_internal_mount2" type="fixed">
+            <origin xyz="-0.05 0 0" rpy="${radians(-90)} 0 ${radians(90)}"/>
+            <parent link="left_lower_arm"/>
+            <child link="left_lower_arm_cover"/>
+        </joint>
     </xacro:macro>
 
     <!-- right_wrist -->
     <xacro:macro name="right_wrist">
         <xacro:wrist name="right_wrist"/>
+        <xacro:wrist_extension_ring name="right_wrist_extension_ring"/>
+        <xacro:wrist_cover name="right_wrist_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="right_wrist_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
         <joint name="right_wrist_joint" type="continuous">
             <origin xyz="0 0 0" rpy="${radians(90)} 0 0"/>
@@ -152,16 +202,29 @@
             <child link="right_wrist"/>
             <axis xyz="1 0 0"/>
         </joint>
-        <joint name="right_wrist_internal_mount" type="fixed">
+        <joint name="right_wrist_internal_mount1" type="fixed">
             <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
             <parent link="right_wrist"/>
             <child link="right_wrist_motor"/>
         </joint>
+        <joint name="right_wrist_internal_mount2" type="fixed">
+            <origin xyz="0.035 0.035 0" rpy="${radians(-90)} ${radians(-90)} 0"/>
+            <parent link="right_wrist"/>
+            <child link="right_wrist_extension_ring"/>
+        </joint>
+        <joint name="right_wrist_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.009" rpy="0 0 0"/>
+            <parent link="right_wrist_extension_ring"/>
+            <child link="right_wrist_cover"/>
+        </joint>
+
     </xacro:macro>
 
     <!-- left_wrist -->
     <xacro:macro name="left_wrist">
         <xacro:wrist name="left_wrist"/>
+        <xacro:wrist_extension_ring name="left_wrist_extension_ring"/>
+        <xacro:wrist_cover name="left_wrist_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="left_wrist_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
         <joint name="left_wrist_joint" type="continuous">
             <origin xyz="0 0 0" rpy="${radians(-90)} 0 0"/>
@@ -169,16 +232,28 @@
             <child link="left_wrist"/>
             <axis xyz="1 0 0"/>
         </joint>
-        <joint name="left_wrist_internal_mount" type="fixed">
+        <joint name="left_wrist_internal_mount1" type="fixed">
             <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
             <parent link="left_wrist"/>
             <child link="left_wrist_motor"/>
+        </joint>
+        <joint name="left_wrist_internal_mount2" type="fixed">
+            <origin xyz="0.035 0.035 0" rpy="${radians(-90)} ${radians(-90)} 0"/>
+            <parent link="left_wrist"/>
+            <child link="left_wrist_extension_ring"/>
+        </joint>
+        <joint name="left_wrist_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.009" rpy="0 0 0"/>
+            <parent link="left_wrist_extension_ring"/>
+            <child link="left_wrist_cover"/>
         </joint>
     </xacro:macro>
 
     <!-- right_palm -->
     <xacro:macro name="right_palm">
         <xacro:wrist name="right_palm"/>
+        <xacro:wrist_extension_ring name="right_palm_extension_ring"/>
+        <xacro:wrist_cover name="right_palm_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="right_palm_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
         <joint name="right_palm_joint" type="continuous">
             <origin xyz="0 0 0" rpy="0 ${radians(180)} ${radians(90)}"/>
@@ -186,16 +261,28 @@
             <child link="right_palm"/>
             <axis xyz="1 0 0"/>
         </joint>
-        <joint name="right_palm_internal_mount" type="fixed">
+        <joint name="right_palm_internal_mount1" type="fixed">
             <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
             <parent link="right_palm"/>
             <child link="right_palm_motor"/>
+        </joint>
+        <joint name="right_palm_internal_mount2" type="fixed">
+            <origin xyz="0.035 0.035 0" rpy="${radians(-90)} ${radians(-90)} 0"/>
+            <parent link="right_palm"/>
+            <child link="right_palm_extension_ring"/>
+        </joint>
+        <joint name="right_palm_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.009" rpy="0 0 0"/>
+            <parent link="right_palm_extension_ring"/>
+            <child link="right_palm_cover"/>
         </joint>
     </xacro:macro>
 
     <!-- left_palm -->
     <xacro:macro name="left_palm">
         <xacro:wrist name="left_palm"/>
+        <xacro:wrist_extension_ring name="left_palm_extension_ring"/>
+        <xacro:wrist_cover name="left_palm_cover"/>
         <xacro:dynamixel_pro_h42-20-s300 name="left_palm_motor" rpy="0 ${radians(-90)} ${radians(180)}"/>
         <joint name="left_palm_joint" type="continuous">
             <origin xyz="0 0 0" rpy="0 ${radians(180)} ${radians(90)}"/>
@@ -203,10 +290,20 @@
             <child link="left_palm"/>
             <axis xyz="1 0 0"/>
         </joint>
-        <joint name="left_palm_internal_mount" type="fixed">
+        <joint name="left_palm_internal_mount1" type="fixed">
             <origin xyz="0.035 -0.055 0" rpy="0 0 0"/>
             <parent link="left_palm"/>
             <child link="left_palm_motor"/>
+        </joint>
+        <joint name="left_palm_internal_mount2" type="fixed">
+            <origin xyz="0.035 0.035 0" rpy="${radians(-90)} ${radians(-90)} 0"/>
+            <parent link="left_palm"/>
+            <child link="left_palm_extension_ring"/>
+        </joint>
+        <joint name="left_palm_internal_mount3" type="fixed">
+            <origin xyz="0 0 0.009" rpy="0 0 0"/>
+            <parent link="left_palm_extension_ring"/>
+            <child link="left_palm_cover"/>
         </joint>
     </xacro:macro>
 </robot>
