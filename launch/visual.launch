@@ -3,7 +3,7 @@
     <!-- setting default arguements -->
     <arg name="model" default="$(find separable_jaws_description)/urdf/separable_jaws.xacro"/>
     <arg name="gui" default="true"/>
-    <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz"/>
+    <arg name="rvizconfig" default="$(find separable_jaws_description)/config/urdf.rviz"/>
 
     <!-- parse xacro files into urdf files -->
     <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
