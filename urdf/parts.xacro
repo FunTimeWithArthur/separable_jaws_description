@@ -35,9 +35,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${link_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${link_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- shoulder -->
@@ -66,9 +68,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${link_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${link_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
     
     <!-- upper_arm -->
@@ -97,9 +101,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${link_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${link_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- lower_arm -->
@@ -128,9 +134,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${link_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${link_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- wrist -->
@@ -159,9 +167,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${link_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${link_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- covers -->
@@ -191,9 +201,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${extension_ring_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${extension_ring_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- shoulder_cover -->
@@ -222,9 +234,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${cover_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${cover_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- upper_arm_cover -->
@@ -253,9 +267,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${cover_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${cover_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- lower_arm_cover -->
@@ -284,9 +300,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${cover_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${cover_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- wrist_extension_ring -->
@@ -315,9 +333,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${extension_ring_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${extension_ring_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- wrist_cover -->
@@ -346,9 +366,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${cover_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${cover_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- motors -->
@@ -378,9 +400,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${motor_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${motor_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- dynamixel_pro_h54-200-s500 -->
@@ -409,9 +433,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${motor_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${motor_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 
     <!-- dynamixel_pro_h42-20-s300-->
@@ -440,8 +466,10 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${name}">
-            <material>Gazebo/${motor_material}</material>
-        </gazebo>
+        <xacro:if value="$(arg using_gazebo)">
+            <gazebo reference="${name}">
+                <material>Gazebo/${motor_material}</material>
+            </gazebo>
+        </xacro:if>
     </xacro:macro>
 </robot>

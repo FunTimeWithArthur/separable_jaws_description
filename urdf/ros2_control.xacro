@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
 <robot name="separable_jaws" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- joint control config macro -->
-    <xacro:macro name="joint_control_config" params="joint_name id:=0 model pos_max:=${radians(180)} pos_min:=${radians(-180)}">
+    <xacro:macro name="joint_control_config" params="joint_name id:=0 pos_max:=${radians(180)} pos_min:=${radians(-180)}">
         <joint name="${joint_name}">
             <param name="id">${id}</param>
-            <param name="model">${model}</param>
             <command_interface name="position">
                 <param name="min">${pos_max}</param>
                 <param name="max">${pos_min}</param>
             </command_interface>
             <command_interface name="velocity"/>
-            <command_interface name="acceleration"/>
-            <command_interface name="effort"/>
             <state_interface name="position"/>
             <state_interface name="velocity"/>
             <state_interface name="effort"/>
@@ -22,23 +19,34 @@
     <xacro:macro name="separable_jaws_ros2_control">
         <ros2_control name="separable_jaws_control_system" type="system">
             <hardware>
-                <plugin>dynamixel_controller/DynamixelHardwareInterface</plugin>
-                <param name="dynamixel_port">/dev/ttyUSB0</param>
-                <param name="dynamixel_protocol">2.0</param>
-                <param name="dynamixel_baudrate">1000000</param>
-                <param name="dynamixel_control_table">$(find dynamixel_controller)/doc/dynamixel_control_table.yaml</param>
+                <xacro:if value="$(arg using_gazebo)">
+                    <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+                </xacro:if>
+                <xacro:unless value="$(arg using_gazebo)">
+                    <xacro:if value="$(arg using_fake_hardware)">
+                        <plugin>mock_components/GenericSystem</plugin>
+                    </xacro:if>
+                    <xacro:unless value="$(arg using_fake_hardware)">
+                        <plugin>dynamixel_hardware/DynamixelHardware</plugin>
+                        <param name="usb_port">/dev/ttyUSB0</param>
+                        <param name="baud_rate">1000000</param>
+                    </xacro:unless>
+                </xacro:unless>
             </hardware>
-            <xacro:joint_control_config joint_name="right_shoulder_joint" id="1" model="H54_100_S500_R"/>
-            <xacro:joint_control_config joint_name="right_upper_arm_joint" id="2" model="H54_200_S500_R"/>
-            <xacro:joint_control_config joint_name="right_lower_arm_joint" id="3" model="H54_100_S500_R"/>
-            <xacro:joint_control_config joint_name="right_wrist_joint" id="4" model="H42_20_S300_R"/>
-            <xacro:joint_control_config joint_name="right_palm_joint" id="5" model="H42_20_S300_R"/>
-
-            <xacro:joint_control_config joint_name="left_shoulder_joint" id="7" model="H54_100_S500_R"/>
-            <xacro:joint_control_config joint_name="left_upper_arm_joint" id="8" model="H54_200_S500_R"/>
-            <xacro:joint_control_config joint_name="left_lower_arm_joint" id="9" model="H54_100_S500_R"/>
-            <xacro:joint_control_config joint_name="left_wrist_joint" id="10" model="H42_20_S300_R"/>
-            <xacro:joint_control_config joint_name="left_palm_joint" id="11" model="H42_20_S300_R"/>
+            <xacro:if value="$(arg using_left_arm)">
+                <xacro:joint_control_config joint_name="left_shoulder_joint" id="7"/>
+                <xacro:joint_control_config joint_name="left_upper_arm_joint" id="8"/>
+                <xacro:joint_control_config joint_name="left_lower_arm_joint" id="9"/>
+                <xacro:joint_control_config joint_name="left_wrist_joint" id="10"/>
+                <xacro:joint_control_config joint_name="left_palm_joint" id="11"/>
+            </xacro:if>
+            <xacro:if value="$(arg using_right_arm)">
+                <xacro:joint_control_config joint_name="right_shoulder_joint" id="1"/>
+                <xacro:joint_control_config joint_name="right_upper_arm_joint" id="2"/>
+                <xacro:joint_control_config joint_name="right_lower_arm_joint" id="3"/>
+                <xacro:joint_control_config joint_name="right_wrist_joint" id="4"/>
+                <xacro:joint_control_config joint_name="right_palm_joint" id="5"/>
+            </xacro:if>
         </ros2_control>
     </xacro:macro>
 </robot>

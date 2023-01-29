@@ -31,6 +31,511 @@
   </material>
   <!-- robot definition -->
   <link name="base_link"/>
+  <link name="left_bracket">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.345"/>
+      <inertia ixx="0.000498516" ixy="0.000014631" ixz="-0.000000327" iyy="0.000806479" iyz="-0.000000068" izz="0.000424246"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/bracket.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/bracket.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_mount_point" type="fixed">
+    <origin rpy="3.141592653589793 -1.5707963267948966 0" xyz="0 0.05 0.2"/>
+    <parent link="base_link"/>
+    <child link="left_bracket"/>
+  </joint>
+  <link name="left_shoulder_motor">
+    <inertial>
+      <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
+      <mass value="0.732"/>
+      <inertia ixx="0.002986389" ixy="0" ixz="0" iyy="0.000323459" iyz="0.000020263" izz="0.002987724"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_shoulder">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.341"/>
+      <inertia ixx="0.001205694" ixy="0.000197055" ixz="-0.000000001" iyy="0.00053986" iyz="-0.000000004" izz="0.001280523"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_shoulder_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.000008154" ixy="0" ixz="0" iyy="0.000007974" iyz="0.000000006" izz="0.000015238"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_shoulder_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.075"/>
+      <inertia ixx="0.000055846" ixy="0" ixz="0" iyy="0.000055846" iyz="0" izz="0.000068514"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_shoulder_joint" type="continuous">
+    <origin rpy="0 3.141592653589793 0" xyz="0 -0.025 0"/>
+    <parent link="left_bracket"/>
+    <child link="left_shoulder_motor"/>
+    <axis xyz="0 -1 0"/>
+  </joint>
+  <joint name="left_shoulder_internal_mount1" type="fixed">
+    <origin rpy="0 -1.5707963267948966 0" xyz="0 -0.00005 0"/>
+    <parent link="left_shoulder_motor"/>
+    <child link="left_shoulder"/>
+  </joint>
+  <joint name="left_shoulder_internal_mount2" type="fixed">
+    <origin rpy="1.5707963267948966 -1.5707963267948966 0" xyz="0 -0.1 0"/>
+    <parent link="left_shoulder"/>
+    <child link="left_shoulder_extension_ring"/>
+  </joint>
+  <joint name="left_shoulder_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.012"/>
+    <parent link="left_shoulder_extension_ring"/>
+    <child link="left_shoulder_cover"/>
+  </joint>
+  <link name="left_upper_arm_motor1">
+    <inertial>
+      <origin rpy="3.141592653589793 3.141592653589793 -1.5707963267948966" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.004683715" ixy="0" ixz="0" iyy="0.000378897" iyz="0.000023577" izz="0.004684874"/>
+    </inertial>
+    <visual>
+      <origin rpy="3.141592653589793 3.141592653589793 -1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-200-s500.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="3.141592653589793 3.141592653589793 -1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-200-s500.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_upper_arm">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.878"/>
+      <inertia ixx="0.021889537" ixy="0.005953130" ixz="-0.000000002" iyy="0.003984845" iyz="-0.000000002" izz="0.024402335"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_upper_arm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.235"/>
+      <inertia ixx="0.000385567" ixy="-0.00000002" ixz="0.000732197" iyy="0.006196229" iyz="-0.000000009" izz="0.00621496"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_upper_arm_motor2">
+    <inertial>
+      <origin rpy="0 1.5707963267948966 1.5707963267948966" xyz="0 0 0"/>
+      <mass value="0.732"/>
+      <inertia ixx="0.002986389" ixy="0" ixz="0" iyy="0.000323459" iyz="0.000020263" izz="0.002987724"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 1.5707963267948966 1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 1.5707963267948966 1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h54-100-s500.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_upper_arm_joint" type="continuous">
+    <origin rpy="-1.5707963267948966 0 0" xyz="0.045 -0.0505 0"/>
+    <parent link="left_shoulder"/>
+    <child link="left_upper_arm_motor1"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="left_upper_arm_internal_mount1" type="fixed">
+    <origin rpy="0 0 0" xyz="0.00005 0 0"/>
+    <parent link="left_upper_arm_motor1"/>
+    <child link="left_upper_arm"/>
+  </joint>
+  <joint name="left_upper_arm_internal_mount2" type="fixed">
+    <origin rpy="0 0 0" xyz="0.01495 -0.25 0"/>
+    <parent link="left_upper_arm"/>
+    <child link="left_upper_arm_motor2"/>
+  </joint>
+  <joint name="left_upper_arm_internal_mount3" type="fixed">
+    <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="0.1 0 0"/>
+    <parent link="left_upper_arm"/>
+    <child link="left_upper_arm_cover"/>
+  </joint>
+  <link name="left_lower_arm">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.54"/>
+      <inertia ixx="0.010361365" ixy="-0.000515183" ixz="0.000000002" iyy="0.000723729" iyz="0.000000018" izz="0.010447864"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_lower_arm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.079"/>
+      <inertia ixx="0.000047626" ixy="0.000000367" ixz="0.000039299" iyy="0.001178645" iyz="-0.000000021" izz="0.00121964"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_lower_arm_motor">
+    <inertial>
+      <origin rpy="0 0 -1.5707963267948966" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.000890475" ixy="0" ixz="0" iyy="0.000092678" iyz="0.000003424" izz=".000890318"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 -1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 -1.5707963267948966" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_lower_arm_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="left_upper_arm_motor2"/>
+    <child link="left_lower_arm"/>
+    <axis xyz="-1 0 0"/>
+  </joint>
+  <joint name="left_lower_arm_internal_mount" type="fixed">
+    <origin rpy="0 0 0" xyz="0.0405 -0.2 0"/>
+    <parent link="left_lower_arm"/>
+    <child link="left_lower_arm_motor"/>
+  </joint>
+  <joint name="left_lower_arm_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="-0.05 0 0"/>
+    <parent link="left_lower_arm"/>
+    <child link="left_lower_arm_cover"/>
+  </joint>
+  <link name="left_wrist">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.000292618" ixy="0.00009765" ixz="0.000000002" iyy="0.000386529" iyz="0.000000001" izz="0.000480342"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_wrist_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.007"/>
+      <inertia ixx="0.000003276" ixy="0" ixz="0" iyy="0.000003197" iyz="0.000000003" izz="0.00000617"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_wrist_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000009686" ixy="0" ixz="0" iyy="0.00000987" iyz="0" izz="0.000017485"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_wrist_motor">
+    <inertial>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.000890475" ixy="0" ixz="0" iyy="0.000092678" iyz="0.000003424" izz=".000890318"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wrist_joint" type="continuous">
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0"/>
+    <parent link="left_lower_arm_motor"/>
+    <child link="left_wrist"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="left_wrist_internal_mount1" type="fixed">
+    <origin rpy="0 0 0" xyz="0.035 -0.055 0"/>
+    <parent link="left_wrist"/>
+    <child link="left_wrist_motor"/>
+  </joint>
+  <joint name="left_wrist_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 -1.5707963267948966 0" xyz="0.035 0.035 0"/>
+    <parent link="left_wrist"/>
+    <child link="left_wrist_extension_ring"/>
+  </joint>
+  <joint name="left_wrist_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.009"/>
+    <parent link="left_wrist_extension_ring"/>
+    <child link="left_wrist_cover"/>
+  </joint>
+  <link name="left_palm">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.000292618" ixy="0.00009765" ixz="0.000000002" iyy="0.000386529" iyz="0.000000001" izz="0.000480342"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+      </geometry>
+      <material name="Light_grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_palm_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.007"/>
+      <inertia ixx="0.000003276" ixy="0" ixz="0" iyy="0.000003197" iyz="0.000000003" izz="0.00000617"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_palm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000009686" ixy="0" ixz="0" iyy="0.00000987" iyz="0" izz="0.000017485"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_palm_motor">
+    <inertial>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <mass value="0.219"/>
+      <inertia ixx="0.000890475" ixy="0" ixz="0" iyy="0.000092678" iyz="0.000003424" izz=".000890318"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+      <material name="Grey"/>
+    </visual>
+    <collision>
+      <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/dynamixel_pro_h42-20-s300.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_palm_joint" type="continuous">
+    <origin rpy="0 3.141592653589793 1.5707963267948966" xyz="0 0 0"/>
+    <parent link="left_wrist_motor"/>
+    <child link="left_palm"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+  <joint name="left_palm_internal_mount1" type="fixed">
+    <origin rpy="0 0 0" xyz="0.035 -0.055 0"/>
+    <parent link="left_palm"/>
+    <child link="left_palm_motor"/>
+  </joint>
+  <joint name="left_palm_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 -1.5707963267948966 0" xyz="0.035 0.035 0"/>
+    <parent link="left_palm"/>
+    <child link="left_palm_extension_ring"/>
+  </joint>
+  <joint name="left_palm_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.009"/>
+    <parent link="left_palm_extension_ring"/>
+    <child link="left_palm_cover"/>
+  </joint>
   <link name="right_bracket">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -51,11 +556,8 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_bracket">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
-  <joint name="mount_point" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 1"/>
+  <joint name="right_mount_point" type="fixed">
+    <origin rpy="0 -1.5707963267948966 0" xyz="0 -0.05 0.2"/>
     <parent link="base_link"/>
     <child link="right_bracket"/>
   </joint>
@@ -79,9 +581,6 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_shoulder_motor">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <link name="right_shoulder">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -102,19 +601,66 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_shoulder">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
+  <link name="right_shoulder_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.000008154" ixy="0" ixz="0" iyy="0.000007974" iyz="0.000000006" izz="0.000015238"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_shoulder_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.075"/>
+      <inertia ixx="0.000055846" ixy="0" ixz="0" iyy="0.000055846" iyz="0" izz="0.000068514"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/shoulder_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
   <joint name="right_shoulder_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0 -0.025 0"/>
     <parent link="right_bracket"/>
     <child link="right_shoulder_motor"/>
     <axis xyz="0 -1 0"/>
   </joint>
-  <joint name="right_shoulder_internal_mount" type="fixed">
+  <joint name="right_shoulder_internal_mount1" type="fixed">
     <origin rpy="0 -1.5707963267948966 0" xyz="0 -0.00005 0"/>
     <parent link="right_shoulder_motor"/>
     <child link="right_shoulder"/>
+  </joint>
+  <joint name="right_shoulder_internal_mount2" type="fixed">
+    <origin rpy="1.5707963267948966 -1.5707963267948966 0" xyz="0 -0.1 0"/>
+    <parent link="right_shoulder"/>
+    <child link="right_shoulder_extension_ring"/>
+  </joint>
+  <joint name="right_shoulder_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.012"/>
+    <parent link="right_shoulder_extension_ring"/>
+    <child link="right_shoulder_cover"/>
   </joint>
   <link name="right_upper_arm_motor1">
     <inertial>
@@ -136,9 +682,6 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_upper_arm_motor1">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <link name="right_upper_arm">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -159,9 +702,26 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_upper_arm">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
+  <link name="right_upper_arm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.235"/>
+      <inertia ixx="0.000385567" ixy="-0.00000002" ixz="0.000732197" iyy="0.006196229" iyz="-0.000000009" izz="0.00621496"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/upper_arm_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
   <link name="right_upper_arm_motor2">
     <inertial>
       <origin rpy="0 1.5707963267948966 1.5707963267948966" xyz="0 0 0"/>
@@ -182,9 +742,6 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_upper_arm_motor2">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <joint name="right_upper_arm_joint" type="continuous">
     <origin rpy="1.5707963267948966 0 0" xyz="0.045 -0.0505 0"/>
     <parent link="right_shoulder"/>
@@ -200,6 +757,11 @@
     <origin rpy="0 0 0" xyz="0.01495 -0.25 0"/>
     <parent link="right_upper_arm"/>
     <child link="right_upper_arm_motor2"/>
+  </joint>
+  <joint name="right_upper_arm_internal_mount3" type="fixed">
+    <origin rpy="1.5707963267948966 0 -1.5707963267948966" xyz="0.1 0 0"/>
+    <parent link="right_upper_arm"/>
+    <child link="right_upper_arm_cover"/>
   </joint>
   <link name="right_lower_arm">
     <inertial>
@@ -221,9 +783,26 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_lower_arm">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
+  <link name="right_lower_arm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.079"/>
+      <inertia ixx="0.000047626" ixy="0.000000367" ixz="0.000039299" iyy="0.001178645" iyz="-0.000000021" izz="0.00121964"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/lower_arm_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
   <link name="right_lower_arm_motor">
     <inertial>
       <origin rpy="0 3.141592653589793 -1.5707963267948966" xyz="0 0 0"/>
@@ -244,19 +823,21 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_lower_arm_motor">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <joint name="right_lower_arm_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="right_upper_arm_motor2"/>
     <child link="right_lower_arm"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
   </joint>
-  <joint name="right_lower_arm_internal_mount" type="fixed">
+  <joint name="right_lower_arm_internal_mount1" type="fixed">
     <origin rpy="0 0 0" xyz="0.0405 -0.2 0"/>
     <parent link="right_lower_arm"/>
     <child link="right_lower_arm_motor"/>
+  </joint>
+  <joint name="right_lower_arm_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 0 1.5707963267948966" xyz="-0.05 0 0"/>
+    <parent link="right_lower_arm"/>
+    <child link="right_lower_arm_cover"/>
   </joint>
   <link name="right_wrist">
     <inertial>
@@ -278,9 +859,46 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_wrist">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
+  <link name="right_wrist_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.007"/>
+      <inertia ixx="0.000003276" ixy="0" ixz="0" iyy="0.000003197" iyz="0.000000003" izz="0.00000617"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_wrist_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000009686" ixy="0" ixz="0" iyy="0.00000987" iyz="0" izz="0.000017485"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
   <link name="right_wrist_motor">
     <inertial>
       <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
@@ -301,19 +919,26 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_wrist_motor">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <joint name="right_wrist_joint" type="continuous">
     <origin rpy="1.5707963267948966 0 0" xyz="0 0 0"/>
     <parent link="right_lower_arm_motor"/>
     <child link="right_wrist"/>
     <axis xyz="1 0 0"/>
   </joint>
-  <joint name="right_wrist_internal_mount" type="fixed">
+  <joint name="right_wrist_internal_mount1" type="fixed">
     <origin rpy="0 0 0" xyz="0.035 -0.055 0"/>
     <parent link="right_wrist"/>
     <child link="right_wrist_motor"/>
+  </joint>
+  <joint name="right_wrist_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 -1.5707963267948966 0" xyz="0.035 0.035 0"/>
+    <parent link="right_wrist"/>
+    <child link="right_wrist_extension_ring"/>
+  </joint>
+  <joint name="right_wrist_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.009"/>
+    <parent link="right_wrist_extension_ring"/>
+    <child link="right_wrist_cover"/>
   </joint>
   <link name="right_palm">
     <inertial>
@@ -335,9 +960,46 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_palm">
-    <material>Gazebo/Light_grey</material>
-  </gazebo>
+  <link name="right_palm_extension_ring">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.007"/>
+      <inertia ixx="0.000003276" ixy="0" ixz="0" iyy="0.000003197" iyz="0.000000003" izz="0.00000617"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_extension_ring.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_palm_cover">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000009686" ixy="0" ixz="0" iyy="0.00000987" iyz="0" izz="0.000017485"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://separable_jaws_description/meshes/wrist_cover.stl"/>
+      </geometry>
+    </collision>
+  </link>
   <link name="right_palm_motor">
     <inertial>
       <origin rpy="0 -1.5707963267948966 3.141592653589793" xyz="0 0 0"/>
@@ -358,94 +1020,137 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="right_palm_motor">
-    <material>Gazebo/Grey</material>
-  </gazebo>
   <joint name="right_palm_joint" type="continuous">
     <origin rpy="0 3.141592653589793 1.5707963267948966" xyz="0 0 0"/>
     <parent link="right_wrist_motor"/>
     <child link="right_palm"/>
     <axis xyz="1 0 0"/>
   </joint>
-  <joint name="right_palm_internal_mount" type="fixed">
+  <joint name="right_palm_internal_mount1" type="fixed">
     <origin rpy="0 0 0" xyz="0.035 -0.055 0"/>
     <parent link="right_palm"/>
     <child link="right_palm_motor"/>
   </joint>
+  <joint name="right_palm_internal_mount2" type="fixed">
+    <origin rpy="-1.5707963267948966 -1.5707963267948966 0" xyz="0.035 0.035 0"/>
+    <parent link="right_palm"/>
+    <child link="right_palm_extension_ring"/>
+  </joint>
+  <joint name="right_palm_internal_mount3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.009"/>
+    <parent link="right_palm_extension_ring"/>
+    <child link="right_palm_cover"/>
+  </joint>
   <ros2_control name="separable_jaws_control_system" type="system">
     <hardware>
-      <plugin>dynamixel_controller/DynamixelHardwareInterface</plugin>
-      <param name="dynamixel_port">/dev/ttyUSB0</param>
-      <param name="dynamixel_protocol">2.0</param>
-      <param name="dynamixel_baudrate">1000000</param>
-      <param name="dynamixel_control_table">/home/docker/ws/install/share/dynamixel_controller/doc/dynamixel_control_table.yaml</param>
+      <plugin>mock_components/GenericSystem</plugin>
     </hardware>
-    <joint name="right_shoulder_joint">
-      <param name="id">1</param>
-      <param name="model">H54_100_S500_R</param>
+    <joint name="left_shoulder_joint">
+      <param name="id">7</param>
       <command_interface name="position">
         <param name="min">3.141592653589793</param>
         <param name="max">-3.141592653589793</param>
       </command_interface>
       <command_interface name="velocity"/>
-      <command_interface name="acceleration"/>
-      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="left_upper_arm_joint">
+      <param name="id">8</param>
+      <command_interface name="position">
+        <param name="min">3.141592653589793</param>
+        <param name="max">-3.141592653589793</param>
+      </command_interface>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="left_lower_arm_joint">
+      <param name="id">9</param>
+      <command_interface name="position">
+        <param name="min">3.141592653589793</param>
+        <param name="max">-3.141592653589793</param>
+      </command_interface>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="left_wrist_joint">
+      <param name="id">10</param>
+      <command_interface name="position">
+        <param name="min">3.141592653589793</param>
+        <param name="max">-3.141592653589793</param>
+      </command_interface>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="left_palm_joint">
+      <param name="id">11</param>
+      <command_interface name="position">
+        <param name="min">3.141592653589793</param>
+        <param name="max">-3.141592653589793</param>
+      </command_interface>
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="right_shoulder_joint">
+      <param name="id">1</param>
+      <command_interface name="position">
+        <param name="min">3.141592653589793</param>
+        <param name="max">-3.141592653589793</param>
+      </command_interface>
+      <command_interface name="velocity"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
     <joint name="right_upper_arm_joint">
       <param name="id">2</param>
-      <param name="model">H54_200_S500_R</param>
       <command_interface name="position">
         <param name="min">3.141592653589793</param>
         <param name="max">-3.141592653589793</param>
       </command_interface>
       <command_interface name="velocity"/>
-      <command_interface name="acceleration"/>
-      <command_interface name="effort"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
     <joint name="right_lower_arm_joint">
       <param name="id">3</param>
-      <param name="model">H54_100_S500_R</param>
       <command_interface name="position">
         <param name="min">3.141592653589793</param>
         <param name="max">-3.141592653589793</param>
       </command_interface>
       <command_interface name="velocity"/>
-      <command_interface name="acceleration"/>
-      <command_interface name="effort"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
     <joint name="right_wrist_joint">
       <param name="id">4</param>
-      <param name="model">H42_20_S300_R</param>
       <command_interface name="position">
         <param name="min">3.141592653589793</param>
         <param name="max">-3.141592653589793</param>
       </command_interface>
       <command_interface name="velocity"/>
-      <command_interface name="acceleration"/>
-      <command_interface name="effort"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>
     </joint>
     <joint name="right_palm_joint">
       <param name="id">5</param>
-      <param name="model">H42_20_S300_R</param>
       <command_interface name="position">
         <param name="min">3.141592653589793</param>
         <param name="max">-3.141592653589793</param>
       </command_interface>
       <command_interface name="velocity"/>
-      <command_interface name="acceleration"/>
-      <command_interface name="effort"/>
       <state_interface name="position"/>
       <state_interface name="velocity"/>
       <state_interface name="effort"/>

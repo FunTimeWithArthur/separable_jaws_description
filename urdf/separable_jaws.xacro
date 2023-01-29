@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <robot name="separable_jaws" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- declare arguments -->
+    <xacro:arg name="using_left_arm" default="true"/>
+    <xacro:arg name="using_right_arm" default="true"/>
+    <xacro:arg name="using_gazebo" default="false"/>
+    <xacro:arg name="using_fake_hardware" default="true"/>
+
     <!-- include macros from other files-->
     <xacro:include filename="$(find separable_jaws_description)/urdf/material.xacro"/>
     <xacro:include filename="$(find separable_jaws_description)/urdf/parts.xacro"/>
@@ -9,19 +15,23 @@
     <!-- robot definition -->
     <link name="base_link"/>
 
-    <xacro:right_bracket xyz="0 -0.05 0"/>
-    <xacro:right_shoulder/>
-    <xacro:right_upper_arm/>
-    <xacro:right_lower_arm/>
-    <xacro:right_wrist/>
-    <xacro:right_palm/>
+    <xacro:if value="$(arg using_left_arm)">
+        <xacro:left_bracket xyz="0 0.05 0.2"/>
+        <xacro:left_shoulder/>
+        <xacro:left_upper_arm/>
+        <xacro:left_lower_arm/>
+        <xacro:left_wrist/>
+        <xacro:left_palm/>
+    </xacro:if>
 
-    <xacro:left_bracket xyz="0 0.05 0"/>
-    <xacro:left_shoulder/>
-    <xacro:left_upper_arm/>
-    <xacro:left_lower_arm/>
-    <xacro:left_wrist/>
-    <xacro:left_palm/>
+    <xacro:if value="$(arg using_right_arm)">
+        <xacro:right_bracket xyz="0 -0.05 0.2"/>
+        <xacro:right_shoulder/>
+        <xacro:right_upper_arm/>
+        <xacro:right_lower_arm/>
+        <xacro:right_wrist/>
+        <xacro:right_palm/>
+    </xacro:if>
 
     <xacro:separable_jaws_ros2_control/>
 </robot>

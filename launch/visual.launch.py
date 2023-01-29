@@ -11,6 +11,20 @@ def generate_launch_description():
     arguments = []
     arguments.append(
         DeclareLaunchArgument(
+            "using_left_arm",
+            default_value="true",
+            description="Arguement to determine wether to use left arm.",
+        )
+    )
+    arguments.append(
+        DeclareLaunchArgument(
+            "using_right_arm",
+            default_value="true",
+            description="Arguement to determine wether to use right arm.",
+        )
+    )
+    arguments.append(
+        DeclareLaunchArgument(
             "using_gazebo",
             default_value="false",
             description="Arguement to determine wether to parse car_description with gazebo.",
@@ -18,6 +32,8 @@ def generate_launch_description():
     )
 
     # initialize arguments
+    using_left_arm = LaunchConfiguration("using_left_arm")
+    using_right_arm = LaunchConfiguration("using_right_arm")
     using_gazebo = LaunchConfiguration("using_gazebo")
 
     # variables
@@ -39,6 +55,12 @@ def generate_launch_description():
         ]),
         " ",
         robot_description_file,
+        " ",
+        "using_left_arm:=",
+        using_left_arm,
+        " ",
+        "using_right_arm:=",
+        using_right_arm,
         " ",
         "using_gazebo:=",
         using_gazebo,
