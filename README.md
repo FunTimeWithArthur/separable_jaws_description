@@ -5,5 +5,5 @@
 Lunch the visual preview of the model by
 
 ```bash=
-ros2 launch separable_jaws_description visula.launch.py
+ros2 launch separable_jaws_description visual.launch.py
 ```
